@@ -3,11 +3,12 @@ import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
 import { AddEditCourseComponent } from './add-edit-course';
 import { NoContentComponent } from './no-content';
+import { LoggedInGuard } from './login/logged-in.guard';
 
 export const ROUTES: Routes = [
-  { path: '',      component: CoursesComponent },
-  { path: 'courses/:id', component: AddEditCourseComponent},
-  { path: 'courses',  component: CoursesComponent },
-  { path: 'login',  component: LoginComponent },
-  { path: '**',    component: NoContentComponent },
+  { path: '', redirectTo: '/courses', pathMatch: 'full' },
+  { path: 'courses/:id', component: AddEditCourseComponent, canActivate: [LoggedInGuard]},
+  { path: 'courses', component: CoursesComponent, canActivate: [LoggedInGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '/courses' }
 ];

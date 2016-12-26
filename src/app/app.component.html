@@ -1,0 +1,21 @@
+<nav>
+    <span *ngIf="isLoggedIn">
+        <a [routerLink]=" ['./courses'] ">
+        Courses
+        </a>
+    </span>
+    <span *ngIf="isLoggedIn">
+        <a [routerLink]=" ['./courses/new'] ">
+        New Course
+        </a>
+    </span>
+    <span class="logout-link" *ngIf="isLoggedIn">
+        <a (click)="logOut()" [routerLink]=" ['./login'] ">
+        Logout
+        </a>
+    </span>
+</nav>
+<main>
+    <router-outlet></router-outlet>
+</main>
+<footer></footer>

@@ -1,7 +1,6 @@
-/*
- * Angular 2 decorators and services
- */
 import { Component, ViewEncapsulation } from '@angular/core';
+
+import { LoginService } from './login/login.service';
 
 /*
  * App Component
@@ -11,48 +10,25 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.component.css'
+    './app.component.css',
+    './css/bootstrap.min.css',
   ],
-  template: `
-    <nav>
-      <span>
-        <a [routerLink]=" ['./'] ">
-          Index
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./login'] ">
-          Login
-        </a>
-      </span>
-	  |
-      <span>
-        <a [routerLink]=" ['./courses'] ">
-          Courses
-        </a>
-      </span>
-	  |
-      <span>
-        <a [routerLink]=" ['./courses/new'] ">
-          New Course
-        </a>
-      </span>
-    </nav>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer>
-    </footer>
-  `
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor() {
+  private isLoggedIn: boolean = false;
+
+  constructor(private loginService: LoginService) {
   }
 
   ngOnInit() {
-    console.log('Init App');
+    this.loginService.getLoggedInObservable()
+      .subscribe(result => {
+          this.isLoggedIn = result;
+        });
+  }
+
+  public logOut() {
+      this.loginService.logout();
   }
 }

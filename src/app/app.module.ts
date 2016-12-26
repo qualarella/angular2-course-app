@@ -18,9 +18,14 @@ import { CoursesComponent } from './courses';
 import { AddEditCourseComponent } from './add-edit-course';
 import { NoContentComponent } from './no-content';
 
+import { LoginService } from './login/login.service';
+import { LoggedInGuard } from './login/logged-in.guard';
+
 // Application wide providers
 const APP_PROVIDERS = [
-  AppState
+  AppState,
+  LoginService,
+  LoggedInGuard
 ];
 
 type StoreType = {
