@@ -16,7 +16,6 @@ import { AppState, InternalStateType } from './app.service';
 import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
 import { AddEditCourseComponent } from './add-edit-course';
-import { NoContentComponent } from './no-content';
 
 import { LoginService } from './login/login.service';
 import { LoggedInGuard } from './login/logged-in.guard';
@@ -43,8 +42,7 @@ type StoreType = {
     AppComponent,
 	LoginComponent,
 	CoursesComponent,
-	AddEditCourseComponent,
-    NoContentComponent
+	AddEditCourseComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,

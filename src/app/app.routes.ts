@@ -2,7 +2,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
 import { AddEditCourseComponent } from './add-edit-course';
-import { NoContentComponent } from './no-content';
 import { LoggedInGuard } from './login/logged-in.guard';
 
 export const ROUTES: Routes = [
