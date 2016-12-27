@@ -32,3 +32,19 @@ input[type=password].validation-error {
 span.logout-link {
     margin-left: 25px;
 }
+
+a.active-link {
+    font-weight: bold;
+}
+
+nav span a:link,
+nav span a:visited,
+nav span a:hover,
+nav span a:focus,
+nav span a:active {
+    text-decoration: none;
+}
+
+nav span a:focus {
+    color: #08c;
+}

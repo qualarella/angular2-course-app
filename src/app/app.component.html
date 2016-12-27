@@ -1,11 +1,11 @@
 <nav>
     <span *ngIf="isLoggedIn">
-        <a [routerLink]=" ['./courses'] ">
+        <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses'] ">
         Courses
         </a>
     </span>
     <span *ngIf="isLoggedIn">
-        <a [routerLink]=" ['./courses/new'] ">
+        <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses/new'] ">
         New Course
         </a>
     </span>
