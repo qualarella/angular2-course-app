@@ -35,7 +35,7 @@ export class LoginService {
   }
 
   private checkLogin(login: string, password: string): boolean {
-    return login == this.VALID_LOGIN && password == this.VALID_PASSWORD;
+    return login === this.VALID_LOGIN && password === this.VALID_PASSWORD;
   }
 
   public logout(): void {

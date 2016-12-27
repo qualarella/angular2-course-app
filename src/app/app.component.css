@@ -20,12 +20,12 @@ nav span {
     margin: 6px;
 }
 
-span.empty-credential-mark {
+span.validation-error {
     color: #d9534f;
 }
 
-input[type=text].empty,
-input[type=password].empty {
+input[type=text].validation-error,
+input[type=password].validation-error {
     border: 1px solid #d9534f;
 }
 

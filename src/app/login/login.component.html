@@ -1,22 +1,28 @@
 <div class="card-container">
     <div class="col-md-6 col-md-offset-3">
         <h2>Login</h2>
-        <form name="form">
+        <form name="form" #form="ngForm">
             <div class="form-group">
                 <label for="login">Login</label>
-                <input type="text" name="loginName" id="loginName" class="form-control" [class.empty]="!isLoginNameValid() && !isLoginNameInInitState && !isLoginNameFieldInFocus" [(ngModel)]="loginName" (blur)="onLoginNameFieldBlur()" (focus)="onLoginNameFieldFocus()" />
-                <span class="empty-credential-mark" *ngIf="!isLoginNameValid() && !isLoginNameInInitState && !isLoginNameFieldInFocus">* enter</span>
+                <input type="text" name="loginName" #loginName="ngModel" class="form-control" [class.validation-error]="loginName.invalid && loginName.touched"
+                       [(ngModel)]="credentials.loginName" required pattern="^[a-zA-Z]+$" />
+
+                <span class="validation-error" *ngIf="loginName.errors?.required && loginName.touched">* required</span>
+                <span class="validation-error" *ngIf="loginName.errors?.pattern">* login field could contain English letters only</span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" [class.empty]="!isPasswordValid() && !isPasswordInInitState && !isPasswordFieldInFocus" [(ngModel)]="password" (blur)="onPasswordFieldBlur()" (focus)="onPasswordFieldFocus()"/>
-                <span class="empty-credential-mark" *ngIf="!isPasswordValid() && !isPasswordInInitState && !isPasswordFieldInFocus">* enter</span>
+                <input type="password" name="password" #password="ngModel" class="form-control" [class.validation-error]="password.invalid && password.touched"
+                       [(ngModel)]="credentials.password" required pattern="^[0-9a-zA-Z]+$" />
+
+                <span class="validation-error" *ngIf="password.errors?.required && password.touched">* required</span>
+                <span class="validation-error" *ngIf="password.errors?.pattern">* password field could contain English letters and numbers only</span>
             </div>
             <div class="alert alert-warning" *ngIf="showWrongCredentialsAlert">
                 Wrong Login or Password
             </div>
             <div class="form-actions">
-                <button type="button" class="btn btn-primary" [disabled]="!isLoginNameValid() || !isPasswordValid()" (click)="logIn()">Login</button>
+                <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="logIn()">Login</button>
             </div>
         </form>
     </div>
