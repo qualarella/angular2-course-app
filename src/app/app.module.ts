@@ -20,11 +20,16 @@ import { AddEditCourseComponent } from './add-edit-course';
 import { LoginService } from './login/login.service';
 import { LoggedInGuard } from './login/logged-in.guard';
 
+import { CoursesService } from './services/courses.service';
+
+import { DurationPipe } from './pipes/duration.pipe';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
   LoginService,
-  LoggedInGuard
+  LoggedInGuard,
+  CoursesService
 ];
 
 type StoreType = {
@@ -40,9 +45,10 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-	LoginComponent,
-	CoursesComponent,
-	AddEditCourseComponent
+    LoginComponent,
+    CoursesComponent,
+    AddEditCourseComponent,
+    DurationPipe
   ],
   imports: [ // import Angular's modules
     BrowserModule,

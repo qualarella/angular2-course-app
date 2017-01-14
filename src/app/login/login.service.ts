@@ -16,16 +16,14 @@ export class LoginService {
   }
 
   public login(login: string, password: string): Observable<User> {
-    let self = this;
-
     return new Observable<User>((subscriber: Subscriber<User>) => {
-      let checked: boolean = self.checkLogin(login, password);
+      let checked: boolean = this.checkLogin(login, password);
       let user: User = null;
       
       if (checked) {
           user = new User(login);
       
-          localStorage.setItem(self.AUTH_USER_KEY, JSON.stringify(user));
+          localStorage.setItem(this.AUTH_USER_KEY, JSON.stringify(user));
 
           this.loggedIn.next(true);
       }

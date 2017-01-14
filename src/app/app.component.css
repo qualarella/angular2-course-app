@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
+  min-width: 890px;
 }
 
 span.active {
@@ -48,3 +49,9 @@ nav span a:active {
 nav span a:focus {
     color: #08c;
 }
+
+.btn-group .btn { 
+    width:100%;
+    margin-bottom: 10px !important;
+}
+

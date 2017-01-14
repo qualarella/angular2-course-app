@@ -1,7 +1,30 @@
 <div class="card-container">
   <h1>Courses</h1>
   <hr>
+  <div style="margin-bottom: 15px;">
+      <div style="float: left; width: 80%;">
+          <input style="margin-bottom: 0; width: 470px;" type="text" [(ngModel)]="filterText"/>
+          <button type="button" class="btn btn-primary" style="width: 115px;" (click)="filter()">Filter</button>
+          <button type="button" class="btn" style="width: 115px;" (click)="clearFilter()">Clear</button>
+      </div>
+      <div style="float: right; width: 20%; text-align: right;">
+          <button type="button" class="btn btn-success" style="width: 115px;" (click)="goNewCourse()">New Course</button>
+      </div>
+      <div style="clear:both;"></div>
+  </div>
+  <hr>
   <div>
-	Courses List Content
+      <div class="well" *ngFor="let course of filteredCourses">
+          <div style="float: left; width: calc(100% - 130px); margin-right: 15px;">
+              <strong>{{ course.name }}</strong> - <em>{{ course.duration | duration}}</em> - {{ course.created | date:'MM.dd.y' }}
+              <hr />
+              {{ course.description }}
+          </div>
+          <div class="btn-group btn-group-vertical" style="width: 115px; float: right;">
+              <button type="button" class="btn btn-default" (click)="goEditCourse(course)">Edit</button>
+              <button type="button" class="btn btn-danger" (click)="deleteCourse(course)">Delete</button>
+          </div>
+          <div style="clear: both;"></div>
+      </div>
   </div>
 </div>

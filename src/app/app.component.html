@@ -4,11 +4,6 @@
         Courses
         </a>
     </span>
-    <span *ngIf="isLoggedIn">
-        <a routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLink]=" ['./courses/new'] ">
-        New Course
-        </a>
-    </span>
     <span class="logout-link" *ngIf="isLoggedIn">
         <a (click)="logOut()" [routerLink]=" ['./login'] ">
         Logout
