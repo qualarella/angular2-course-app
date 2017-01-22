@@ -39,16 +39,16 @@ export class CoursesService {
   public delete(id: number): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       setTimeout(() => {
-        let removingIndex: number;
+        let removingIndex: number = -1;
 
         this.courses.forEach((item, index) => {
-            if (item.id === id) {
-                removingIndex = index;
-            }
+          if (item.id === id) {
+            removingIndex = index;
+          }
         });
 
-        if (removingIndex) {
-            this.courses.splice(removingIndex, 1);
+        if (removingIndex !== -1) {
+          this.courses.splice(removingIndex, 1);
         }
 
         return subscriber.next(true)

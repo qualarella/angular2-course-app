@@ -47,12 +47,19 @@ export class CoursesComponent {
 
   public deleteCourse(course: Course): void {
     if (confirm('Are you sure? This course will be removed')) {
-      this.coursesService.delete(course.id).subscribe(result => {
-        if (result) {
-          let index = this.courses.indexOf(course, 0);
+        this.coursesService.delete(course.id).subscribe(result => {
 
-          if (index !== -1) {
-              this.courses.splice(index, 1);
+        if (result) {
+          let courseIndex = this.courses.indexOf(course, 0);
+
+          if (courseIndex !== -1) {
+            this.courses.splice(courseIndex, 1);
+
+            let filteredCourseIndex = this.filteredCourses.indexOf(course, 0);
+
+            if (filteredCourseIndex !== -1) {
+              this.filteredCourses.splice(filteredCourseIndex, 1);
+            }
           }
         }
       });
