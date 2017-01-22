@@ -5,7 +5,9 @@ import { Course } from '../courses/course';
 
 //REST Server Courses service mock
 export class CoursesService {
-  private SERVER_DELAY: number = 1200;
+  private SERVER_DELAY: number = 700;
+
+  private nextId: number = 4;
 
   private courses: Course[] = [
       new Course(1, 'Matt LeBlanc tackles the Ariel Nomad! - New Top Gear Teaser', 100, 'The brand new series of TG is weeks away. Here\'s one of the films to look forward to... What happens when you introduce a star from Hollywood to a car from Somerset? An utterly bonkers car, at that?', new Date('05.05.2010')),
@@ -18,7 +20,23 @@ export class CoursesService {
 
   public get(id?: number): Observable<Course[]> {
     if (id) {
-      throw new Error('Not implemented');
+      return new Observable<Course[]>((subscriber: Subscriber<Course[]>) => {
+          setTimeout(() => {
+            let course: Course;
+
+            this.courses.forEach((item, index) => {
+                if (item.id === id) {
+                  course = new Course(item.id,
+                                      item.name,
+                                      item.duration,
+                                      item.description,
+                                      item.created);
+                }
+            });
+
+            return subscriber.next([course]);
+        }, this.SERVER_DELAY);
+      });
     }
 
     return new Observable<Course[]>((subscriber: Subscriber<Course[]>) => {
@@ -28,13 +46,21 @@ export class CoursesService {
     });
   }
 
-  public post() {
-    throw new Error('Not implemented');
+  public post(course: Course): Observable<number> {
+      return new Observable<number>((subscriber: Subscriber<number>) => {
+          setTimeout(() => {
+            let newId: number = this.nextId++;
+
+            return subscriber.next(newId);
+          }, this.SERVER_DELAY);
+      });
   }
 
-  public put() {
-    throw new Error('Not implemented');
+  /*
+  public put(course: Course): Observable<boolean> {
+    
   }
+  */
 
   public delete(id: number): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {

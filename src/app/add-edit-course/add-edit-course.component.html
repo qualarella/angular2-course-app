@@ -1,7 +1,40 @@
-<div class="card-container">
+﻿<div class="card-container">
   <h1>Add/Edit Course</h1>
   <hr>
   <div>
-	Add/Edit Course Content - {{id}}
+      <span>
+         <a [routerLink]=" ['./courses'] ">Courses</a>
+      </span>
+      <span *ngIf="!isEditMode">
+          - New Course
+      </span>
+      <span *ngIf="isEditMode">
+          - {{ editCourseName }}
+      </span>
+  </div>
+  <hr>
+  <div>
+      <form [formGroup]="courseForm" novalidate (ngSubmit)="save()">
+          <div class="form-group">
+              <label>Name</label>
+              <input class="form-control" name="courseName" formControlName="courseName" />
+
+              <span *ngIf="courseForm.controls['courseName'].invalid && courseForm.controls['courseName'].touched">
+                  Required
+              </span>
+          </div>
+          <div class="form-group">
+              <label>Description</label>
+              <input class="form-control" name="courseDescription" formControlName="courseDescription" />
+
+              <span *ngIf="courseForm.controls['courseDescription'].invalid && courseForm.controls['courseDescription'].touched">
+                  Required
+              </span>
+          </div>
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+          </div>
+      </form>
   </div>
 </div>
