@@ -17,12 +17,14 @@ export class AddEditCourseComponent {
 
   private course: Course;
 
+  private submitted: boolean = false;
   private courseForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private router: Router, private coursesService: CoursesService) {
     this.courseForm = new FormGroup({
-      "courseName": new FormControl('', Validators.required),
-      "courseDescription": new FormControl('', Validators.required)
+      courseName: new FormControl('', Validators.required),
+      courseDescription: new FormControl('', Validators.required),
+      courseDuration: new FormControl('0', Validators.required)
     });
   }
 
@@ -42,10 +44,11 @@ export class AddEditCourseComponent {
         this.coursesService.get(+this.id).subscribe(courses => {
           this.course = courses[0];
 
-          this.courseForm.patchValue(
+          this.courseForm.setValue(
             {
               courseName: this.course.name,
-              courseDescription: this.course.description
+              courseDescription: this.course.description,
+              courseDuration: this.course.duration
             }
           );
 
@@ -56,6 +59,29 @@ export class AddEditCourseComponent {
   }
 
   public save(): void {
+    this.submitted = true;
+
+    if (this.courseForm.invalid) {
+      alert('Validation errors');
+
+      return;
+    }
+
+    this.course.name = this.courseForm.value.courseName;
+    this.course.description = this.courseForm.value.courseDescription;
+    this.course.duration = this.courseForm.value.courseDuration;
+
+    if (this.isEditMode) {
+      this.coursesService.put(this.course).subscribe(() => {
+        this.editCourseName = this.course.name;
+      });
+
+      return;
+    }
+
+    this.coursesService.post(this.course).subscribe(id => {
+      this.router.navigate([`/courses/${id}`]);
+    });
 
     // update breadcrumbs & id
   }

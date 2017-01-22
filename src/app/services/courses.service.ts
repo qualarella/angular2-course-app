@@ -47,20 +47,33 @@ export class CoursesService {
   }
 
   public post(course: Course): Observable<number> {
-      return new Observable<number>((subscriber: Subscriber<number>) => {
-          setTimeout(() => {
-            let newId: number = this.nextId++;
+    return new Observable<number>((subscriber: Subscriber<number>) => {
+        setTimeout(() => {
+          course.id = this.nextId;
+          course.created = new Date();
+          this.courses.push(course);
 
-            return subscriber.next(newId);
-          }, this.SERVER_DELAY);
-      });
+          return subscriber.next(this.nextId++);
+        }, this.SERVER_DELAY);
+    });
   }
 
-  /*
-  public put(course: Course): Observable<boolean> {
-    
+  public put(course: Course): Observable<void> {
+    return new Observable<void>((subscriber: Subscriber<void>) => {
+      setTimeout(() => {
+        this.courses.forEach((item, index) => {
+          if (item.id === course.id) {
+              item.name = course.name;
+              item.duration = course.duration;
+              item.description = course.description;
+              item.created = course.created;
+          }
+        });
+
+        return subscriber.next();
+      }, this.SERVER_DELAY);
+    });
   }
-  */
 
   public delete(id: number): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
