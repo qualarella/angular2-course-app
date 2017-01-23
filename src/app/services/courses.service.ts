@@ -50,7 +50,6 @@ export class CoursesService {
     return new Observable<number>((subscriber: Subscriber<number>) => {
         setTimeout(() => {
           course.id = this.nextId;
-          course.created = new Date();
           this.courses.push(course);
 
           return subscriber.next(this.nextId++);

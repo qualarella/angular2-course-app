@@ -19,7 +19,7 @@
               <label>Name</label>
               <input class="form-control" name="courseName" formControlName="courseName" />
 
-              <span *ngIf="this.submitted && courseForm.controls['courseName'].invalid">
+              <span *ngIf="submitted && courseForm.controls['courseName'].invalid">
                   Required
               </span>
           </div>
@@ -27,7 +27,7 @@
               <label>Description</label>
               <input class="form-control" name="courseDescription" formControlName="courseDescription" />
 
-              <span *ngIf="this.submitted && courseForm.controls['courseDescription'].invalid">
+              <span *ngIf="submitted && courseForm.controls['courseDescription'].invalid">
                   Required
               </span>
           </div>
@@ -39,7 +39,15 @@
                 {{ courseForm.controls['courseDuration'].value | duration}}
               </span>
 
-              <span *ngIf="this.submitted && courseForm.controls['courseDuration'].invalid">
+              <span *ngIf="submitted && courseForm.controls['courseDuration'].invalid">
+                  Required
+              </span>
+          </div>
+          <div class="form-group">
+              <label>Created</label>
+              <input class="form-control" name="courseCreated" formControlName="courseCreated" />
+
+              <span *ngIf="submitted && courseForm.controls['courseCreated'].invalid">
                   Required
               </span>
           </div>

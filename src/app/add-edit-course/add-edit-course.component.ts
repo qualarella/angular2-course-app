@@ -5,6 +5,8 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Course } from '../courses/course';
 import { CoursesService } from '../services/courses.service';
 
+import * as moment from 'moment/moment';
+
 @Component({
   selector: 'add-edit-course',
   templateUrl: './add-edit-course.component.html'
@@ -24,7 +26,8 @@ export class AddEditCourseComponent {
     this.courseForm = new FormGroup({
       courseName: new FormControl('', Validators.required),
       courseDescription: new FormControl('', Validators.required),
-      courseDuration: new FormControl('0', Validators.required)
+      courseDuration: new FormControl('0', Validators.required),
+      courseCreated: new FormControl('', Validators.required)
     });
   }
 
@@ -48,7 +51,8 @@ export class AddEditCourseComponent {
             {
               courseName: this.course.name,
               courseDescription: this.course.description,
-              courseDuration: this.course.duration
+              courseDuration: this.course.duration,
+              courseCreated: moment.utc(this.course.created).format('MM.DD.YYYY')
             }
           );
 
@@ -70,6 +74,8 @@ export class AddEditCourseComponent {
     this.course.name = this.courseForm.value.courseName;
     this.course.description = this.courseForm.value.courseDescription;
     this.course.duration = this.courseForm.value.courseDuration;
+
+    this.course.created = moment.utc(this.courseForm.value.courseCreated, 'MM.DD.YYYY').toDate();
 
     if (this.isEditMode) {
       this.coursesService.put(this.course).subscribe(() => {
