@@ -1,6 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
 import { LoginService } from './login/login.service';
+import { AppState, RESET } from './login/loginCounter';
 
 /*
  * App Component
@@ -16,9 +19,11 @@ import { LoginService } from './login/login.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  private loginCounter: Observable<number>;
   private isLoggedIn: boolean = false;
 
-  constructor(private loginService: LoginService) {
+  constructor(private store: Store<AppState>, private loginService: LoginService) {
+    this.loginCounter = store.select('loginCounter');
   }
 
   ngOnInit() {
@@ -28,7 +33,11 @@ export class AppComponent {
         });
   }
 
-  public logOut() {
-      this.loginService.logout();
+  private logOut() {
+    this.loginService.logout();
+  }
+
+  private resetLoginCounter() {
+    this.store.dispatch({ type: RESET });
   }
 }

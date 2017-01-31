@@ -12,5 +12,7 @@
 </nav>
 <main>
     <router-outlet></router-outlet>
+    <hr/>
+    <div *ngIf="isLoggedIn">Login Count: {{ loginCounter | async }} <button type="button" class="btn btn-default" (click)="resetLoginCounter()">Set to 0</button></div>
 </main>
 <footer></footer>

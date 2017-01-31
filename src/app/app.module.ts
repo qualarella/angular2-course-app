@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
+import { StoreModule } from '@ngrx/store';
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -25,6 +27,7 @@ import { CoursesService } from './services/courses.service';
 import { DurationPipe } from './pipes/duration.pipe';
 
 import { ServiceErrorHandler } from './handlers/ServiceError.handler';
+import { LoginCounterReducer } from './login/loginCounter';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -58,7 +61,8 @@ type StoreType = {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules }),
+    StoreModule.provideStore({ loginCounter: LoginCounterReducer })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
