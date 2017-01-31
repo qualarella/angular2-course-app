@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule, ApplicationRef, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -24,12 +24,15 @@ import { CoursesService } from './services/courses.service';
 
 import { DurationPipe } from './pipes/duration.pipe';
 
+import { ServiceErrorHandler } from './handlers/ServiceError.handler';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AppState,
   LoginService,
   LoggedInGuard,
-  CoursesService
+  CoursesService,
+  { provide: ErrorHandler, useClass: ServiceErrorHandler }
 ];
 
 type StoreType = {

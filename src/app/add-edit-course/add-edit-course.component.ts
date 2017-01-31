@@ -88,8 +88,6 @@ export class AddEditCourseComponent {
     this.coursesService.post(this.course).subscribe(id => {
       this.router.navigate([`/courses/${id}`]);
     });
-
-    // update breadcrumbs & id
   }
 
   public cancel(): void {

@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 
 import { Course } from '../courses/course';
+import { ServiceError } from '../handlers/serviceError';
 
 //REST Server Courses service mock
 export class CoursesService {
@@ -60,6 +61,13 @@ export class CoursesService {
   public put(course: Course): Observable<void> {
     return new Observable<void>((subscriber: Subscriber<void>) => {
       setTimeout(() => {
+
+        // Global Error Handling dummy
+        if (course.name.toLowerCase() === 'error') {
+          throw new ServiceError(500, 'PUT Course Service mock: failed');
+        }
+
+
         this.courses.forEach((item, index) => {
           if (item.id === course.id) {
               item.name = course.name;
