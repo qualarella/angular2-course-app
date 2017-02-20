@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 import { Course } from '../courses/course';
 import { CoursesService } from '../services/courses.service';
+import { DateValidator } from './date.validator';
 
 import * as moment from 'moment/moment';
 
@@ -27,7 +28,7 @@ export class AddEditCourseComponent {
       courseName: new FormControl('', Validators.required),
       courseDescription: new FormControl('', Validators.required),
       courseDuration: new FormControl('0', Validators.required),
-      courseCreated: new FormControl('', Validators.required)
+      courseCreated: new FormControl('', [Validators.required, Validators.pattern('^\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d$'), DateValidator])
     });
   }
 
@@ -92,6 +93,29 @@ export class AddEditCourseComponent {
 
   public cancel(): void {
     this.router.navigate(['./courses']);
+  }
+
+  public onCourseCreatedInputChanged(): void {
+    let value: string = this.courseForm.value.courseCreated;
+
+    let regexElements = ['\\d', '\\d', '\\.', '\\d', '\\d', '\\.', '\\d', '\\d', '\\d', '\\d'];
+    let checked = false;
+
+    if (value.length > regexElements.length) {
+      value = value.substr(0, regexElements.length);
+    }
+
+    while (value.length > 0 && !checked) {
+      let regexStr = '^' + regexElements.slice(0, value.length).join('') + '$';
+
+      if (new RegExp(regexStr).test(value)) {
+        checked = true;
+      } else {
+        value = value.slice(0, -1);
+      }
+    }
+
+    this.courseForm.controls['courseCreated'].setValue(value);
   }
 
   ngOnDestroy() {
