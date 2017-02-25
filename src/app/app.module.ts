@@ -19,6 +19,8 @@ import { LoginComponent } from './login';
 import { CoursesComponent } from './courses';
 import { AddEditCourseComponent } from './add-edit-course';
 
+import { DateComponent, DurationComponent } from './controls/index';
+
 import { LoginService } from './login/login.service';
 import { LoggedInGuard } from './login/logged-in.guard';
 
@@ -54,6 +56,8 @@ type StoreType = {
     LoginComponent,
     CoursesComponent,
     AddEditCourseComponent,
+    DateComponent,
+    DurationComponent,
     DurationPipe
   ],
   imports: [ // import Angular's modules

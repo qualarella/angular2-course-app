@@ -1,0 +1,5 @@
+﻿<input class="form-control" type="number" [(ngModel)]="value"/>
+
+<span *ngIf="value > 0">
+  {{ value | duration }}
+</span>
